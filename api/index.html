@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+<body>
+    <h1>WebSocket Client</h1>
+    <div id="messages"></div>
+    <button onclick="sendMessage()">Send Data</button>
+
+    <script>
+        const socket = new WebSocket("ws://localhost:8080/ws/sensors");
+
+        socket.onopen = function() {
+            console.log("Connected to WebSocket server");
+            document.getElementById("messages").innerHTML += "<p>Connected to WebSocket server</p>";
+        };
+
+        socket.onmessage = function(event) {
+            console.log("Message from server: " + event.data);
+            document.getElementById("messages").innerHTML += "<p>Message from server: " + event.data + "</p>";
+        };
+
+        function sendMessage() {
+            const data = JSON.stringify({
+                temperature: 25.5,
+                humidity: 60,
+                moisture: 40,
+                pH: 7.2
+            });
+            socket.send(data);
+        }
+    </script>
+</body>
+</html>
