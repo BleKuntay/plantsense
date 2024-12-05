@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: PlantSense API
+  description: API documentation for PlantSense Backend
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local Development Server
+
+paths:
+  /api/sensors:
+    post:
+      summary: Save sensor data
+      description: Save a new sensor data record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorEntity'
+      responses:
+        '200':
+          description: Sensor saved successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Invalid request
+    get:
+      summary: Get all sensors
+      description: Retrieve all sensor data
+      responses:
+        '200':
+          description: Data retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SensorEntity'
+
+  /api/sensors/summary:
+    get:
+      summary: Get daily summary
+      description: Retrieve daily summary of sensor data
+      responses:
+        '200':
+          description: Summary retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailySummaryDTO'
+
+  /api/control:
+    post:
+      summary: Control pump
+      description: Send a command to control the pump (TURN_ON or TURN_OFF)
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: TURN_ON
+      responses:
+        '200':
+          description: Command received successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Invalid command
+    get:
+      summary: Get pump status
+      description: Retrieve the current status of the pump
+      responses:
+        '200':
+          description: Pump status retrieved successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+
+components:
+  schemas:
+    SensorEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        temperature:
+          type: number
+          format: float
+        humidity:
+          type: number
+          format: float
+        soilMoisture:
+          type: number
+          format: float
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - temperature
+        - humidity
+        - soilMoisture
+        - timestamp
+
+    DailySummaryDTO:
+      type: object
+      properties:
+        day:
+          type: string
+          format: date
+        avgHumidity:
+          type: number
+          format: float
+        avgSoilMoisture:
+          type: number
+          format: float
+        avgTemperature:
+          type: number
+          format: float
+      required:
+        - day
+        - avgHumidity
+        - avgSoilMoisture
+        - avgTemperature
