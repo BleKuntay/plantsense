@@ -56,12 +56,16 @@
     - spring.datasource.username=your_db_username
     - spring.datasource.password=your_db_password
 3. Start the Spring Boot backend:
-    - mvn spring-boot:run
+    ```bash
+    mvn spring-boot:run
+    ```
 
 ### **3. Frontend (Vue.js)**
 1. Navigate to the frontend/ folder in your terminal.
 2. Install dependencies:
-    - npm install
+    ```bash
+    npm install
+    ```
 3. Start the Vue.js application
 
 ---
