@@ -51,11 +51,13 @@
 ### **2. Backend (Spring Boot)**
 1. Open the backend/ folder in an IDE like IntelliJ IDEA or Visual Studio Code.
 2. Update the application.properties file:
-    - server.port=8080
-    - spring.datasource.url=jdbc:postgresql://localhost:5432/plantsense
-    - spring.datasource.username=your_db_username
-    - spring.datasource.password=your_db_password
-3. Start the Spring Boot backend:
+   ```properties
+    server.port=8080
+    spring.datasource.url=jdbc:postgresql://localhost:5432/plantsense
+    spring.datasource.username=your_db_username
+    spring.datasource.password=your_db_password
+   ```
+4. Start the Spring Boot backend:
     ```bash
     mvn spring-boot:run
     ```
